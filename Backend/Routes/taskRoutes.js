@@ -32,6 +32,15 @@ router.get('/task',async(req,res)=>{
     }
 });
 
+router.get('/task/:id',async(req,res)=>{
+    try {
+        const Tasks=await Task.findById(req.params.id);
+        res.json(Tasks);
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+});
+
 router.put('/task/:id',async(req,res)=>{
     try {
         const UpdatedTask=await Task.findByIdAndUpdate(req.params.id,req.body,{new:true})
