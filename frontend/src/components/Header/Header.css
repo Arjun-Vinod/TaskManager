@@ -1,4 +1,7 @@
 .Header{
     display: flex;
-    padding: 1rem;
+    padding:5px;
+    /* background-color: #e0f5e0; */
+    background-color: #cceccc;
+    font-size: small;
 }
