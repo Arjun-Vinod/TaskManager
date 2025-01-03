@@ -47,6 +47,23 @@
 .btn:hover{
   cursor: pointer;
 }
+
+.task-heading {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%; 
+}
+
+.task-heading h1{
+  display: flex;
+  background-color: #81c784;
+  margin-left: 0;
+  padding: 5px;
+  border-top-right-radius: 10px; 
+  border-bottom-right-radius: 10px; 
+  font-size: 20px;
+}
 .form-container {
   position: fixed;
   top: 50%;
@@ -104,18 +121,14 @@
   color: #ff0000;
 }
 
-.task-heading{
-  display: flex;
-  padding: 10px;
-}
-
 .task-items {
   border: 1px solid #ccc; 
   margin-bottom: 10px; 
   padding: 15px; 
   border-radius: 5px; 
-  background-color:#e0f5e0; 
+  background-color:#f5fff5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color:#2e2e2e;
 }
 .task-item h3 {
   font-size: 18px; 
@@ -130,6 +143,14 @@
 .main-item{
   display: flex;
   justify-content: space-between;
+}
+.main-item label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  gap: 8px; 
 }
 .form-btns{
   display: flex;
@@ -148,6 +169,9 @@
     border-radius: 5px;
     color:#f5fff5 ;
 }
+.form-btns .delete-btn:hover{
+  background-color: #ff0000;
+} 
 .form-btns .close-btn{
   position: absolute;
   top: 10px;
@@ -206,4 +230,25 @@
 .edit-form .btn {
   align-self: flex-end;
 }
+
+.check-box{
+  height: 20px;
+  width: 20px;
+}
+.no-tasks-message {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
+}
+
+.message {
+  font-size: 24px;
+  font-weight: bold;
+  color: #555; 
+  text-align: center;
+}
+
+
+
 

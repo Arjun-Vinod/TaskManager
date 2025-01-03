@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./Hero.css";
 import Header from "../Header/Header";
+import CompletedTask from "../completedTask/completedTask";
+import IncompleteTask from "../incompleteTask/incompleteTask";
 const Hero = () => {
   const [showForm, setShowForm] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -41,7 +44,7 @@ const Hero = () => {
           description: "",
           isCompleted: false,
           dueDate: "",
-        }); 
+        });
       })
       .catch((error) => {
         console.error("Error adding task:", error);
@@ -66,7 +69,7 @@ const Hero = () => {
       });
   };
   const handleEditClick = (task) => {
-    setEditTaskData(task); 
+    setEditTaskData(task);
   };
 
   const deleteTask = (id) => {
@@ -148,97 +151,130 @@ const Hero = () => {
             </form>
           </div>
         )}
-        <div>
-          <h1>Hello</h1>
-          <p>Create Your Tasks</p>
-        </div>
       </div>
       <div className="right">
         <Header />
-        <div className="task-heading">
-          <h1>All Tasks</h1>
-        </div>
-        <div className="tasks">
-          {tasks.map((task) => (
-            <div key={task._id} className="task-items">
-              <div className="main-item">
-                <div>
-                  <h3>Title: {task.title}</h3>
-                  <p>Description: {task.description}</p>
-                  <p>Due Date: {new Date(task.dueDate).toLocaleDateString()}</p>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <div className="task-heading">
+                  <h1>All Tasks</h1>
                 </div>
-                <div>
-                  <label className="check-box">
-                    <input
-                      type="checkbox"
-                      checked={task.isCompleted}
-                      onChange={() => toggleTaskCompletion(task)}
-                    />
-                    Completed
-                  </label>
+                <div className="tasks">
+                  {tasks.length === 0 ? (
+                    <div className="no-tasks-message">
+                      <h2 className="message">No tasks yet?<br/><br/>Create your First Task Today.</h2>
+                    </div>
+                  ) : (
+                    tasks
+                      .slice()
+                      .sort((a, b) => a.isCompleted - b.isCompleted)
+                      .map((task) => (
+                        <div key={task._id} className="task-items">
+                          <div className="main-item">
+                            <div>
+                              <h3>Title: {task.title}</h3>
+                              <p>Description: {task.description}</p>
+                              <p>
+                                Due Date:{" "}
+                                {new Date(task.dueDate).toLocaleDateString()}
+                              </p>
+                            </div>
+                            <div>
+                              <label>
+                                Completed
+                                <input
+                                  className="check-box"
+                                  type="checkbox"
+                                  checked={task.isCompleted}
+                                  onChange={() => toggleTaskCompletion(task)}
+                                />
+                              </label>
+                            </div>
+                          </div>
+                          <div className="form-btns">
+                            <button onClick={() => handleEditClick(task)}>
+                              Edit
+                            </button>
+                            {editTaskData && editTaskData._id === task._id && (
+                              <div className="editForm-container">
+                                <button
+                                  className="close-btn"
+                                  onClick={handleCloseClick}
+                                >
+                                  &times;
+                                </button>
+                                <form className="edit-form" onSubmit={editTask}>
+                                  <h2>Edit Task</h2>
+                                  <label>
+                                    Task Name:
+                                    <input
+                                      type="text"
+                                      name="taskName"
+                                      value={editTaskData.title}
+                                      onChange={(e) =>
+                                        setEditTaskData({
+                                          ...editTaskData,
+                                          title: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </label>
+                                  <label>
+                                    Description:
+                                    <textarea
+                                      name="description"
+                                      value={editTaskData.description}
+                                      onChange={(e) =>
+                                        setEditTaskData({
+                                          ...editTaskData,
+                                          description: e.target.value,
+                                        })
+                                      }
+                                    ></textarea>
+                                  </label>
+                                  <label>
+                                    Due Date:
+                                    <input
+                                      type="date"
+                                      name="dueDate"
+                                      value={editTaskData.dueDate}
+                                      onChange={(e) =>
+                                        setEditTaskData({
+                                          ...editTaskData,
+                                          dueDate: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </label>
+                                  <button type="submit" className="btn">
+                                    Save
+                                  </button>
+                                </form>
+                              </div>
+                            )}
+                            <button className="delete-btn" onClick={() => deleteTask(task._id)}>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))
+                  )}
                 </div>
               </div>
-              <div className="form-btns">
-                <button onClick={() => handleEditClick(task)}>Edit</button>
-                {editTaskData && editTaskData._id === task._id && (
-                  <div className="editForm-container">
-                    <button className="close-btn" onClick={handleCloseClick}>
-                      &times;
-                    </button>
-                    <form className="edit-form" onSubmit={editTask}>
-                      <h2>Edit Task</h2>
-                      <label>
-                        Task Name:
-                        <input
-                          type="text"
-                          name="taskName"
-                          value={editTaskData.title}
-                          onChange={(e) =>
-                            setEditTaskData({
-                              ...editTaskData,
-                              title: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <label>
-                        Description:
-                        <textarea
-                          name="description"
-                          value={editTaskData.description}
-                          onChange={(e) =>
-                            setEditTaskData({
-                              ...editTaskData,
-                              description: e.target.value,
-                            })
-                          }
-                        ></textarea>
-                      </label>
-                      <label>
-                        Due Date:
-                        <input
-                          type="date"
-                          name="dueDate"
-                          value={editTaskData.dueDate}
-                          onChange={(e) =>
-                            setEditTaskData({
-                              ...editTaskData,
-                              dueDate: e.target.value,
-                            })
-                          }
-                        />
-                      </label>
-                      <button type="submit" className="btn">
-                        Save
-                      </button>
-                    </form>
-                  </div>
-                )}
-                <button onClick={() => deleteTask(task._id)}>Delete</button>
-              </div>
-            </div>
-          ))}
-        </div>
+            }
+          />
+          <Route
+            path="/completedtask"
+            element={<CompletedTask tasks={tasks} />}
+          />
+          <Route
+            path="/incompletetask"
+            element={<IncompleteTask tasks={tasks} />}
+          />
+        </Routes>
       </div>
     </div>
   );
