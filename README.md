@@ -32,9 +32,9 @@ cd backend
 - Install dependencies
 npm install
 
--Create a .env file and configure it
-echo "MONGO_URI=<Your MongoDB Connection String>" >> .env
-echo "PORT=5000" >> .env
+- Create a .env file and configure it
+ "MONGO_URI=<Your MongoDB Connection String>" >> .env
+ "PORT=5000" >> .env
 
 -Start the backend server
 npm start
@@ -54,11 +54,11 @@ npm start
 
 ---
 
-###Deployement
+### Deployement
 
-#Backend Deployment
+* Backend Deployment
 -Deploy to Render or Heroku.
-#Frontend Deployment
+* Frontend Deployment
 -Deploy to Netlify or Vercel.
 
 
