@@ -36,8 +36,7 @@ npm install
  "MONGO_URI=<Your MongoDB Connection String>" >> .env
  "PORT=5000" >> .env
 
--Start the backend server
-npm start
+- Start the backend server node app.js
 
 ---
 
