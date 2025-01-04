@@ -43,13 +43,13 @@ npm start
 
 ### Frontend Setup
 
-# Navigate to the frontend folder
+* Navigate to the frontend folder
 cd ../frontend
 
-# Install dependencies
+* Install dependencies
 npm install
 
-# Start the React app
+* Start the React app
 npm start
 
 ---
