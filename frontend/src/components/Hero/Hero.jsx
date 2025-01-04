@@ -10,7 +10,7 @@ const Hero = () => {
   const [tasks, setTasks] = useState([]);
   const [editTaskData, setEditTaskData] = useState(null);
   const [taskData, setTaskData] = useState({
-    taskName: "",
+    title: "",
     description: "",
     dueDate: "",
   });
@@ -25,7 +25,7 @@ const Hero = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/task")
+      .get("https://taskmanager-9a4k.onrender.com/api/task")
       .then((response) => {
         setTasks(response.data);
       })
@@ -34,9 +34,15 @@ const Hero = () => {
       });
   }, []);
 
-  const addTask = () => {
+  const addTask = (e) => {
+    e.preventDefault();
+    // const newTaskData = {
+    //   taskName: taskData.title, // Match field name with the API
+    //   description: taskData.description,
+    //   dueDate: taskData.dueDate,
+    // };
     axios
-      .post("http://localhost:4000/api/task", taskData)
+      .post("https://taskmanager-9a4k.onrender.com/api/task", taskData)
       .then((response) => {
         setTasks([...tasks, response.data]);
         setTaskData({
@@ -44,8 +50,10 @@ const Hero = () => {
           description: "",
           isCompleted: false,
           dueDate: "",
-        });
+        }); 
+        setShowForm(false);
       })
+      
       .catch((error) => {
         console.error("Error adding task:", error);
       });
@@ -56,7 +64,7 @@ const Hero = () => {
     if (!editTaskData) return;
 
     axios
-      .put(`http://localhost:4000/api/task/${editTaskData._id}`, editTaskData)
+      .put(`https://taskmanager-9a4k.onrender.com/api/task/${editTaskData._id}`, editTaskData)
       .then((response) => {
         const updatedTasks = tasks.map((task) =>
           task._id === editTaskData._id ? response.data : task
@@ -74,7 +82,7 @@ const Hero = () => {
 
   const deleteTask = (id) => {
     axios
-      .delete(`http://localhost:4000/api/task/${id}`)
+      .delete(`https://taskmanager-9a4k.onrender.com/api/task/${id}`)
       .then(() => {
         setTasks(tasks.filter((task) => task._id !== id));
       })
@@ -86,7 +94,7 @@ const Hero = () => {
   const toggleTaskCompletion = (task) => {
     const updatedTask = { ...task, isCompleted: !task.isCompleted };
     axios
-      .put(`http://localhost:4000/api/task/${task._id}`, updatedTask)
+      .put(`https://taskmanager-9a4k.onrender.com/api/task/${task._id}`, updatedTask)
       .then((response) => {
         const updatedTasks = tasks.map((t) =>
           t._id === task._id ? response.data : t
