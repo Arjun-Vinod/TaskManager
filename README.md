@@ -1,5 +1,6 @@
-## Arjun Vinod
-## mern2
+**Name: Arjun Vinod**
+
+**Mern2**
   
 # Task Manager Application
 
