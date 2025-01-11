@@ -1,3 +1,6 @@
+- Arjun Vinod
+- mern2
+  
 # Task Manager Application
 
 A simple Task Manager application that allows users to manage their tasks effectively. The app is built using React for the frontend, Node.js/Express for the backend, and MongoDB for the database.
